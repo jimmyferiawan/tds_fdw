@@ -18,10 +18,11 @@
 
 
 
+#include "postgres.h"
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <unistd.h>
+#include "postgres.h"
 
 /* Override PGDLLEXPORT for visibility */
 
@@ -1305,16 +1306,16 @@ char* tdsConvertToCString(DBPROCESS* dbproc, int srctype, const BYTE* src, DBINT
     switch(srctype)
     {
         case SYBCHAR:
-            __attribute__ ((fallthrough));
+            /* fallthrough */
         case SYBVARCHAR:
-            __attribute__ ((fallthrough));
+            /* fallthrough */
         case SYBTEXT:
             real_destlen = srclen + 1; /* the size of the array */
             destlen = -2; /* the size to pass to dbconvert (-2 means to null terminate it) */
             desttype = SYBCHAR;
             break;
         case SYBBINARY:
-            __attribute__ ((fallthrough));
+            /* fallthrough */
         case SYBVARBINARY:
             real_destlen = srclen;
             destlen = srclen;
